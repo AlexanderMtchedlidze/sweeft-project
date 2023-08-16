@@ -10,20 +10,26 @@ class DateHelper
 	public static function convertShelfLifeToCarbon($shelfLifeValue): Carbon
 	{
 		$matches = [];
-		preg_match('/(\d+)\s*(\w+)/', $shelfLifeValue, $matches);
+		preg_match_all('/(\d+)\s*(\w+)/', $shelfLifeValue, $matches, PREG_SET_ORDER);
 
-		if (count($matches) !== 3) {
-			throw new InvalidArgumentException("Invalid shell life format: $shelfLifeValue");
+		if (empty($matches)) {
+			throw new InvalidArgumentException("Invalid shelf life format: $shelfLifeValue");
 		}
 
-		$value = intval($matches[1]);
-		$unit = $matches[2];
+		$carbon = Carbon::now();
 
-		return match ($unit) {
-			'day', 'days' => Carbon::now()->addDays($value),
-			'month', 'months' => Carbon::now()->addMonths($value),
-			'year', 'years' => Carbon::now()->addYears($value),
-			default => throw new InvalidArgumentException("Unsupported unit: $unit"),
-		};
+		foreach ($matches as $match) {
+			$value = intval($match[1]);
+			$unit = $match[2];
+
+			match ($unit) {
+				'day', 'days' => $carbon->addDays($value),
+				'month', 'months' => $carbon->addMonths($value),
+				'year', 'years' => $carbon->addYears($value),
+				default => throw new InvalidArgumentException("Unsupported unit: $unit"),
+			};
+		}
+
+		return $carbon;
 	}
 }

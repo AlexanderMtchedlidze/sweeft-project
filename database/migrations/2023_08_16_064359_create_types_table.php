@@ -13,7 +13,7 @@ return new class() extends Migration {
 	{
 		Schema::create('types', function (Blueprint $table) {
 			$table->id();
-			$table->enum('type', [TypeEnum::Foodstuff, TypeEnum::Detergents, TypeEnum::MeatProducts]);
+			$table->string('type');
 			$table->timestamps();
 		});
 	}
