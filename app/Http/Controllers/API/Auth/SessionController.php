@@ -5,25 +5,22 @@ namespace App\Http\Controllers\API\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Session\StoreSessionRequest;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class SessionController extends Controller
 {
-	public function login(StoreSessionRequest $request)
+	public function login(StoreSessionRequest $request): JsonResponse
 	{
 		$attributes = $request->validated();
 
-		$user = User::where('email', $attributes['username'])->first();
+		$user = User::where('name', $attributes['name'])->first();
 
 		if (!$user || !Hash::check($attributes['password'], $user->password)) {
-			$errorMessage = [
-				'username' => [
-					'The credentials you entered are incorrect',
-				],
-			];
-
-			throw ValidationException::withMessages($errorMessage);
+			return response()->json([
+				'message' => 'The credentials you entered are incorrect',
+			], ResponseAlias::HTTP_UNPROCESSABLE_ENTITY);
 		}
 
 		auth()->login($user);

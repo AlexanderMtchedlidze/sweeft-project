@@ -12,6 +12,7 @@ class TypeFactory extends Factory
 	public function definition()
 	{
 		return [
+			'type' => fake()->name,
 		];
 	}
 }

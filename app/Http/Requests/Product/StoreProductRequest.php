@@ -16,7 +16,7 @@ class StoreProductRequest extends FormRequest
 	{
 		return [
 			'name'               => ['required', 'string', 'min:10', 'max:15'],
-			'code'               => ['required', Rule::unique('types', 'code')],
+			'code'               => ['required', Rule::unique('products', 'code')],
 			'quantity'           => ['integer', 'min:0'],
 			'type_id'            => ['required', Rule::exists('types', 'id')],
 			'manufacturing_date' => ['required', 'date'],
