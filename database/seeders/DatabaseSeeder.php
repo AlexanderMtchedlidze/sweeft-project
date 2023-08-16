@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Product;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -29,5 +30,7 @@ class DatabaseSeeder extends Seeder
 		Type::factory()->create([
 			'type' => 'meat products',
 		]);
+
+		Product::factory()->create();
 	}
 }

@@ -17,6 +17,12 @@ class ProductFactory extends Factory
 	public function definition(): array
 	{
 		return [
+			'name'               => fake()->name,
+			'code'               => 'example-code',
+			'type_id'            => 1,
+			'manufacturing_date' => now(),
+			'shelf_life'         => '1 day',
+			'user_id'            => 1,
 		];
 	}
 }

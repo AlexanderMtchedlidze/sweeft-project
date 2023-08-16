@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\TypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,7 +13,7 @@ return new class() extends Migration {
 	{
 		Schema::create('types', function (Blueprint $table) {
 			$table->id();
-			$table->enum('type', config('type.type'));
+			$table->enum('type', [TypeEnum::Foodstuff, TypeEnum::Detergents, TypeEnum::MeatProducts]);
 			$table->timestamps();
 		});
 	}

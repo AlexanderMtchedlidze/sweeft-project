@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API\Product;
 
-use App\Helpers\DateHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
@@ -14,22 +13,20 @@ class ProductController extends Controller
 {
 	public function store(StoreProductRequest $request): JsonResponse
 	{
-        $validatedData = $request->validated();
+		$attributes = $request->validated();
 
-        $carbonShellLife = DateHelper::convertShelfLifeToCarbon($validatedData['shelf_life']);
+		Product::create($attributes);
 
-        $validatedData['shelf_life'] = $carbonShellLife;
-
-        Product::create($validatedData);
-
-        return response()->json([
-            'message' => 'Product created successfully',
-        ], ResponseAlias::HTTP_CREATED);
+		return response()->json([
+			'message' => 'Product created successfully',
+		], ResponseAlias::HTTP_CREATED);
 	}
 
 	public function update(Product $product, UpdateProductRequest $request): JsonResponse
 	{
-		$product->update($request->validated());
+		$attributes = $request->validated();
+
+		$product->update($attributes);
 
 		return response()->json([
 			'message' => 'Product updated successfully',
@@ -49,7 +46,7 @@ class ProductController extends Controller
 	{
 		return response()->json([
 			'quantity' => $product->quantity,
-			'type'     => $product->type->name,
+			'type'     => $product->type->type,
 		]);
 	}
 }
