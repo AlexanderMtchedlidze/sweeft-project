@@ -7,7 +7,6 @@ use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class ProductController extends Controller
 {
@@ -19,7 +18,7 @@ class ProductController extends Controller
 
 		return response()->json([
 			'message' => 'Product created successfully',
-		], ResponseAlias::HTTP_CREATED);
+		]);
 	}
 
 	public function update(Product $product, UpdateProductRequest $request): JsonResponse

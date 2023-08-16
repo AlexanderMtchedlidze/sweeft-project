@@ -10,7 +10,7 @@ class DateHelper
 	public static function convertShelfLifeToCarbon($shelfLifeValue): Carbon
 	{
 		$matches = [];
-        preg_match('/(\d+)\s*(\w+)/', $shelfLifeValue, $matches);
+		preg_match('/(\d+)\s*(\w+)/', $shelfLifeValue, $matches);
 
 		if (count($matches) !== 3) {
 			throw new InvalidArgumentException("Invalid shell life format: $shelfLifeValue");
