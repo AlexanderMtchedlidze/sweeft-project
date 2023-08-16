@@ -7,7 +7,7 @@ use App\Http\Requests\StoreProductRequest;
 
 class ProductController extends Controller
 {
-    public function store(StoreProductRequest $request) {
-
-    }
+	public function store(StoreProductRequest $request)
+	{
+	}
 }
