@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\Auth\SessionController;
+use App\Http\Controllers\API\Product\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-	return $request->user();
-});
+Route::post('/login', [SessionController::class, 'login'])->middleware('guest')->name('login');
+
+Route::middleware('auth:sanctum')->controller(ProductController::class)
+	->prefix('/products')
+	->name('products.')
+	->group(function () {
+		Route::post('/create', 'store')->name('create');
+		Route::patch('/{product}', 'update')->name('product');
+		Route::get('/{product:code}/check-shelf-life', 'checkShelfLife')->name('check_shelf_life');
+		Route::get('/{product:code}/get-quantity-and-type', 'getQuantityAndType')->name('get_quantity–and_type');
+	});
