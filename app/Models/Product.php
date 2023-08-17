@@ -17,8 +17,14 @@ class Product extends Model
 		return $this->belongsTo(Type::class);
 	}
 
-	public function checkShelfLifeExpiration()
-	{
+    public function setShelfLifeAttribute($value): void
+    {
+        self::calculateExpiryDate(Carbon::parse($this->manufacturing_date), $value);
+        $this->attributes['shelf_life'] = $value;
+    }
+
+	public function checkShelfLifeExpiration(): bool
+    {
 		$manufacturingDate = Carbon::parse($this->manufacturing_date);
 
 		$expiryDate = self::calculateExpiryDate($manufacturingDate, $this->shelf_life);

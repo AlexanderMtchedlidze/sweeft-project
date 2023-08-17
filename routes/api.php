@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [SessionController::class, 'login'])->middleware('guest')->name('login');
 
-Route::middleware('auth:sanctum')->controller(ProductController::class)
+Route::middleware('auth:sanctum')
+    ->controller(ProductController::class)
 	->prefix('/products')
 	->name('products.')
 	->group(function () {

@@ -50,7 +50,7 @@ class ProductController extends Controller
 	public function getQuantityAndType(Product $product): JsonResponse
 	{
 		return response()->json([
-			'quantity' => $product->quantity,
+			'in_quantity' => $product->quantity > 0,
 			'type'     => new TypeResource($product->type),
 		]);
 	}
