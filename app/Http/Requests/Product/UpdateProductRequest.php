@@ -15,7 +15,7 @@ class UpdateProductRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'quantity'           => ['min:0'],
+			'quantity'           => ['integer', 'min:0'],
 			'type_id'            => ['integer', Rule::exists('types', 'id')],
 			'shelf_life'         => ['string'],
 			'manufacturing_date' => ['date'],

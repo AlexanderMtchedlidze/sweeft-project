@@ -23,6 +23,6 @@ Route::middleware('auth:sanctum')->controller(ProductController::class)
 	->group(function () {
 		Route::post('/create', 'store')->name('create');
 		Route::patch('/{product}', 'update')->name('product');
-		Route::get('/{product:code}/check-shelf-life', 'checkShelfLife')->name('check_shelf_life');
+		Route::get('/{product:code}/check-shelf-life', 'checkShelfLifeExpiration')->name('check_shelf_life');
 		Route::get('/{product:code}/get-quantity-and-type', 'getQuantityAndType')->name('get_quantity–and_type');
 	});

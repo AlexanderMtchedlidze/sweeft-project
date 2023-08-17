@@ -21,7 +21,7 @@ class ProductFactory extends Factory
 			'code'               => 'example-code',
 			'type_id'            => 1,
 			'manufacturing_date' => now(),
-			'shelf_life'         => '1 day',
+			'shelf_life'         => '1 day 3 months 10 years',
 			'user_id'            => 1,
 		];
 	}

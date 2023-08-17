@@ -10,7 +10,7 @@ class Type extends Model
 {
 	use HasFactory;
 
-    protected $casts = [
-        'type' => TypeEnum::class
-    ];
+	protected $casts = [
+		'type' => TypeEnum::class,
+	];
 }

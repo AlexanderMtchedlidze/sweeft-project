@@ -32,12 +32,10 @@ class ProductController extends Controller
 		]);
 	}
 
-	public function checkShelfLife(Product $product): JsonResponse
+	public function checkShelfLifeExpiration(Product $product): JsonResponse
 	{
-		$shellLife = $product->shell_life;
-
 		return response()->json([
-			'expired' => $shellLife > now(),
+			'expired' => $product->checkShelfLifeExpiration(),
 		]);
 	}
 
