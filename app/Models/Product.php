@@ -26,35 +26,35 @@ class Product extends Model
 		return $expiryDate->isPast();
 	}
 
-    public static function calculateExpiryDate(Carbon $manufacturingDate, string $shelfLifeValue): Carbon
-    {
-        $matches = self::parseShelfLifeValue($shelfLifeValue);
-        $expiryDate = $manufacturingDate->copy();
+	public static function calculateExpiryDate(Carbon $manufacturingDate, string $shelfLifeValue): Carbon
+	{
+		$matches = self::parseShelfLifeValue($shelfLifeValue);
+		$expiryDate = $manufacturingDate->copy();
 
-        foreach ($matches as $match) {
-            $value = intval($match[1]);
-            $unit = $match[2];
+		foreach ($matches as $match) {
+			$value = intval($match[1]);
+			$unit = $match[2];
 
-            match ($unit) {
-                'day', 'days' => $expiryDate->addDays($value),
-                'month', 'months' => $expiryDate->addMonths($value),
-                'year', 'years' => $expiryDate->addYears($value),
-                default => throw new InvalidArgumentException("Invalid shelf life format")
-            };
-        }
+			match ($unit) {
+				'day', 'days' => $expiryDate->addDays($value),
+				'month', 'months' => $expiryDate->addMonths($value),
+				'year', 'years' => $expiryDate->addYears($value),
+				default => throw new InvalidArgumentException('Invalid shelf life format')
+			};
+		}
 
-        return $expiryDate;
-    }
+		return $expiryDate;
+	}
 
-    protected static function parseShelfLifeValue(string $shelfLifeValue): array
-    {
-        $matches = [];
-        preg_match_all('/(\d+)\s*(\w+)/', $shelfLifeValue, $matches, PREG_SET_ORDER);
+	protected static function parseShelfLifeValue(string $shelfLifeValue): array
+	{
+		$matches = [];
+		preg_match_all('/(\d+)\s*(\w+)/', $shelfLifeValue, $matches, PREG_SET_ORDER);
 
-        if (empty($matches)) {
-            throw new InvalidArgumentException("Invalid shelf life format: $shelfLifeValue");
-        }
+		if (empty($matches)) {
+			throw new InvalidArgumentException("Invalid shelf life format: $shelfLifeValue");
+		}
 
-        return $matches;
-    }
+		return $matches;
+	}
 }
